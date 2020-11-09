@@ -32,6 +32,16 @@ Features
 
 * TODO
 
+Development
+-----------
+
+* Travis CI is used for continuous integration testing.
+* PyUp is used to keep dependencies secure and up to date.
+* Flake8 is used to enforce style guidelines.
+* Tox is used to ensure:
+    * Tests pass on multiple versions of Python.
+    * Flake8 tests pass.
+
 Credits
 -------
 
