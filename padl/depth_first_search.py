@@ -27,6 +27,7 @@ class DepthFirstSearch:
         return self._marked[vertex]
 
     def count(self) -> int:
+        """Returns the number of vertices reachable from the source vertex."""
         return self._count
 
     def _mark(self, vertex) -> None:
