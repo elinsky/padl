@@ -1,3 +1,6 @@
+import typing
+
+
 class Graph:
     """Data structure for unweighted undirected graphs.  Vertices must be immutable hashable objects.  Self-loops and
     parallel edges are not supported."""
@@ -6,15 +9,15 @@ class Graph:
         self._adjacency_matrix = {}
         self._num_edges = 0
 
-    def v(self):
+    def v(self) -> int:
         """Returns the number of vertices in the graph."""
         return len(self._adjacency_matrix)
 
-    def e(self):
+    def e(self) -> int:
         """Returns the number of edges in the graph."""
         return self._num_edges
 
-    def add_edge(self, v, w):
+    def add_edge(self, v: typing.Hashable, w: typing.Hashable) -> None:
         """Adds an edge to the graph between vertices V and W.  Vertices V and W must already be present"""
         if v not in self._adjacency_matrix:
             raise VertexNotPresentError("Vertex " + str(v) + " not present in graph.")
@@ -28,24 +31,24 @@ class Graph:
             self._num_edges += 1
             return
 
-    def vertices(self):
+    def vertices(self) -> typing.Iterator:
         """Returns an iterator of vertices in the graph."""
         return iter(self._adjacency_matrix.keys())
 
-    def add_vertex(self, v):
+    def add_vertex(self, v: typing.Hashable) -> None:
         """Adds vertex V to the graph.  If the vertex already exists, nothing happens."""
         if v not in self._adjacency_matrix:
             self._adjacency_matrix[v] = set()
 
-    def adj(self, v):
-        """Returns an iterable of vertices adjacent to vertex V."""
+    def adj(self, v: typing.Hashable) -> typing.Iterator:
+        """Returns an iterator of vertices adjacent to vertex V."""
         return iter(self._adjacency_matrix[v])
 
-    def has_edge(self, v, w):
+    def has_edge(self, v: typing.Hashable, w: typing.Hashable) -> bool:
         """Returns True if edge between V and W is present in graph.  Else returns False."""
         return True if w in self._adjacency_matrix[v] else False
 
-    def has_vertex(self, v):
+    def has_vertex(self, v: typing.Hashable) -> bool:
         """Returns True if vertex is present in graph.  Else returns False."""
         return True if v in self._adjacency_matrix else False
 
@@ -62,8 +65,6 @@ class Graph:
                 result += "\n"
         return result
 
-# TODO should I have type hints?
-# TODO should I have an interface for this?
 
 class VertexNotPresentError(Exception):
     pass
