@@ -31,18 +31,18 @@ class Graph:
             self._num_edges += 1
             return
 
-    def vertices(self) -> typing.Iterator:
-        """Returns an iterator of vertices in the graph."""
-        return iter(self._adjacency_matrix.keys())
+    def vertices(self) -> set:
+        """Returns a set of vertices in the graph."""
+        return set(self._adjacency_matrix.keys())
 
     def add_vertex(self, v: typing.Hashable) -> None:
         """Adds vertex V to the graph.  If the vertex already exists, nothing happens."""
         if v not in self._adjacency_matrix:
             self._adjacency_matrix[v] = set()
 
-    def adj(self, v: typing.Hashable) -> typing.Iterator:
-        """Returns an iterator of vertices adjacent to vertex V."""
-        return iter(self._adjacency_matrix[v])
+    def adj(self, v: typing.Hashable) -> set:
+        """Returns a set of vertices adjacent to vertex V."""
+        return self._adjacency_matrix[v]
 
     def has_edge(self, v: typing.Hashable, w: typing.Hashable) -> bool:
         """Returns True if edge between V and W is present in graph.  Else returns False."""
