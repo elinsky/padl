@@ -43,7 +43,8 @@ class DepthFirstSearchPaths:
             target : target vertex.
         """
         if target not in self._edge_to:
-            raise PathDoesNotExistError("There does not exist a path from " + str(self._source) + " to " + str(target) + ".")
+            raise PathDoesNotExistError(
+                "There does not exist a path from " + str(self._source) + " to " + str(target) + ".")
         result = deque()
         curr = target
         while curr != self._source:
@@ -63,6 +64,7 @@ class DepthFirstSearchPaths:
         for unmarked_adj in unmarked_adj_vertices:
             self._edge_to[unmarked_adj] = vertex
             self._dfs(unmarked_adj, graph)
+
 
 class PathDoesNotExistError(Exception):
     pass
