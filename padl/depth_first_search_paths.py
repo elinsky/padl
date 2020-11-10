@@ -1,11 +1,12 @@
 import typing
+from collections import deque
 
 from padl.graph import Graph
 
 
-class DepthFirstSearch:
-    """Given an undirected unweighted graph and a source vertex, DepthFirstSearch calculates how many and which vertices
-    in the graph are reachable from the source target.
+class DepthFirstSearchPaths:
+    """Given an undirected unweighted graph and a source vertex, DepthFirstSearchPaths calculates whether or not there
+    exists a path from the source to the target, and if it exists, the path.
 
     Args:
         graph : Graph to search.  Must be of type padl.Graph.
@@ -14,9 +15,12 @@ class DepthFirstSearch:
     def __init__(self, graph: Graph, source: typing.Hashable):
         self._count = 0
         self._marked = {}
+        self._source = source
+        self._edge_to = {}
         for vertex in graph.vertices():
             self._marked[vertex] = False
 
+        self._edge_to[source] = source
         self._dfs(source, graph)
 
     def marked(self, target: typing.Hashable) -> bool:
@@ -32,6 +36,22 @@ class DepthFirstSearch:
         """Returns the number of vertices reachable from the source vertex."""
         return self._count
 
+    def path_to(self, target: typing.Hashable) -> deque:
+        """Returns a deque that contains the path from the source vertex to the target.
+
+        Args:
+            target : target vertex.
+        """
+        if target not in self._edge_to:
+            raise PathDoesNotExistError("There does not exist a path from " + str(self._source) + " to " + str(target) + ".")
+        result = deque()
+        curr = target
+        while curr != self._source:
+            result.appendleft(curr)
+            curr = self._edge_to[curr]
+        result.appendleft(self._source)
+        return result
+
     def _mark(self, vertex) -> None:
         self._marked[vertex] = True
         self._count += 1
@@ -41,4 +61,8 @@ class DepthFirstSearch:
         adjacent_vertices = graph.adj(vertex)
         unmarked_adj_vertices = filter(lambda adj_vertex: not self.marked(adj_vertex), adjacent_vertices)
         for unmarked_adj in unmarked_adj_vertices:
+            self._edge_to[unmarked_adj] = vertex
             self._dfs(unmarked_adj, graph)
+
+class PathDoesNotExistError(Exception):
+    pass
