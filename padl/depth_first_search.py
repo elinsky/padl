@@ -1,9 +1,10 @@
 import typing
 
 from padl.graph import Graph
+from padl.search import Search
 
 
-class DepthFirstSearch:
+class DepthFirstSearch(Search):
     """Given an undirected unweighted graph and a source vertex, DepthFirstSearch calculates how many and which vertices
     in the graph are reachable from the source target.
 

@@ -2,9 +2,11 @@ import typing
 from collections import deque
 
 from padl.graph import Graph
+from padl.paths import Paths
+from padl.search import Search
 
 
-class DepthFirstSearchPaths:
+class DepthFirstSearchPaths(Paths, Search):
     """Given an undirected unweighted graph and a source vertex, DepthFirstSearchPaths calculates whether or not there
     exists a path from the source to the target, and if it exists, the path.
 
@@ -45,13 +47,21 @@ class DepthFirstSearchPaths:
         if target not in self._edge_to:
             raise PathDoesNotExistError(
                 "There does not exist a path from " + str(self._source) + " to " + str(target) + ".")
-        result = deque()
+        result = deque() # Used as a stack.  Left side is the top.
         curr = target
         while curr != self._source:
             result.appendleft(curr)
             curr = self._edge_to[curr]
         result.appendleft(self._source)
         return result
+
+    def has_path_to(self, target: typing.Hashable) -> bool:
+        """Returns true if there exists a path between the source and target vertices.
+
+        Args:
+            target : target vertex.
+        """
+        return target in self._edge_to
 
     def _mark(self, vertex) -> None:
         self._marked[vertex] = True

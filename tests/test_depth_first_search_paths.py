@@ -32,3 +32,10 @@ class TestDepthFirstSearchPaths:
         with pytest.raises(PathDoesNotExistError):
             dfsp = DepthFirstSearchPaths(tiny_graph, 3)
             dfsp.path_to(6)
+
+    @pytest.mark.parametrize("source, target, expected",
+                             [(2, 2, True), (5, 1, True), (6, 0, False), (3, 6, False), (3, 0, True)])
+    def test_has_path_to(self, source, target, expected, tiny_graph):
+        dfsp = DepthFirstSearchPaths(tiny_graph, source)
+        actual = dfsp.has_path_to(target)
+        assert actual == expected
