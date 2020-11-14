@@ -24,13 +24,19 @@ Python algorithms and data structures library
 
 
 * Free software: MIT license
-* Documentation: https://padl.readthedocs.io.
+* Documentation: https://padl.readthedocs.io. (work in progress)
 
 
 Features
 --------
 
-* TODO
+* Graph - Data structure for unweighted undirected graphs.
+* Depth First Search - Given an undirected unweighted graph and a source vertex, DepthFirstSearch calculates how many
+  and which vertices in the graph are reachable from the source target.
+* Depth First Search Paths - Given an undirected unweighted graph and a source vertex, DepthFirstSearchPaths calculates
+  whether or not there exists a path from the source to the target, and if it exists, the path.
+* Breadth First Search Paths - Given an undirected unweighted graph and a source vertex, BreadthFirstPaths calculates
+  the shortest path between the source vertex and all other vertices.
 
 Development
 -----------
@@ -39,8 +45,9 @@ Development
 * PyUp is used to keep dependencies secure and up to date.
 * Flake8 is used to enforce style guidelines.
 * Tox is used to ensure:
-    * Tests pass on multiple versions of Python.
-    * Flake8 tests pass.
+
+  * Tests pass on multiple versions of Python.
+  * Flake8 tests pass.
 
 Credits
 -------
